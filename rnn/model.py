@@ -2,10 +2,10 @@ import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from genotypes import STEPS
-from utils import mask2d
-from utils import LockedDropout
-from utils import embedded_dropout
+from rnn.genotypes import STEPS
+from rnn.utils import mask2d
+from rnn.utils import LockedDropout
+from rnn.utils import embedded_dropout
 from torch.autograd import Variable
 
 INITRANGE = 0.04
