@@ -12,18 +12,18 @@ def repackage_hidden(h):
         return tuple(repackage_hidden(v) for v in h)
 
 
-def batchify(data, bsz, args):
+def batchify(data, bsz, cuda=True):
     nbatch = data.size(0) // bsz
     data = data.narrow(0, 0, nbatch * bsz)
     data = data.view(bsz, -1).t().contiguous()
     print(data.size())
-    if args.cuda:
+    if cuda:
         data = data.cuda()
     return data
 
 
-def get_batch(source, i, args, seq_len=None, evaluation=False):
-    seq_len = min(seq_len if seq_len else args.bptt, len(source) - 1 - i)
+def get_batch(source, i, bptt, seq_len=None, evaluation=False):
+    seq_len = min(seq_len if seq_len else bptt, len(source) - 1 - i)
     data = Variable(source[i:i+seq_len], volatile=evaluation)
     target = Variable(source[i+1:i+1+seq_len])
     return data, target
